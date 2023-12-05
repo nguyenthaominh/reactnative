@@ -48,6 +48,17 @@ const styles =StyleSheet.create({
     alignItems:"center",
     backgroundColor:COLORS.primary
 
+  },
+  title1:{
+    fontFamily:"bold",
+    fontSize:SIZES.xLarge,
+    color:COLORS.black,
+    paddingTop:10
+  },
+  title2:{
+    fontFamily:"bold",
+    fontSize:30,
+    color:COLORS.primary
   }
 
 })

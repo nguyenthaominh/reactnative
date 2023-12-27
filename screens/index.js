@@ -4,12 +4,20 @@ import Profile from "./Profile";
 import Cart from "./Cart";
 import ProductDetails from "./ProductDetails";
 import NewRivals from "./NewRivals";
+import LoginPage from "./LoginPage";
+import Orders from "./Orders";
+import Favorites from "./Favorites";
+import SingUp from "./SingUp";
 
-export{
+export {
   Home,
   Search,
   Profile,
   Cart,
   ProductDetails,
-  NewRivals
-}
+  NewRivals,
+  LoginPage,
+  Orders,
+  Favorites,
+  SingUp
+};

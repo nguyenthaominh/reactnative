@@ -18,6 +18,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../constants";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as AppleAuthentication from "expo-apple-authentication";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -212,10 +213,50 @@ const LoginPage = ({ navigation }) => {
               </View>
             )}
           </Formik>
+          <View style={styles1.container}>
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={
+                AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+              }
+              buttonStyle={
+                AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+              }
+              cornerRadius={5}
+              style={styles1.button}
+              onPress={async () => {
+                try {
+                  const credential = await AppleAuthentication.signInAsync({
+                    requestedScopes: [
+                      AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                      AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                    ],
+                  });
+                  navigation.replace("Bottom Navigation");
+                } catch (e) {
+                  if (e.code === "ERR_REQUEST_CANCELED") {
+                    Alert.alert("Đăng nhập thất bại");
+                  } else {
+                    Alert.alert("Đăng nhập thất bại");
+                  }
+                }
+              }}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </ScrollView>
   );
 };
-
+const styles1 = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20
+  },
+  button: {
+    width: 200,
+    height: 44,
+  },
+});
 export default LoginPage;

@@ -8,6 +8,11 @@ import LoginPage from "./LoginPage";
 import Orders from "./Orders";
 import Favorites from "./Favorites";
 import SingUp from "./SingUp";
+import Notify from "./Notify";
+import FaceId from "./FaceId";
+import Ads from "./Ads";
+import Map from "./Map";
+import Health from "./Health";
 
 export {
   Home,
@@ -19,5 +24,10 @@ export {
   LoginPage,
   Orders,
   Favorites,
-  SingUp
+  SingUp,
+  Notify,
+  FaceId,
+  Ads,
+  Map,
+  Health
 };

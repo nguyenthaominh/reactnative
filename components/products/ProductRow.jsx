@@ -18,7 +18,7 @@ const ProductRow = () => {
       {isLoading ? (
         <ActivityIndicator size={SIZES.xxlarge} color={COLORS.primary} />
       ) : error ? (
-        <Text> Something went wrong </Text>
+        <Text> Kiểm tra lại dữ liệu </Text>
       ) : (
         <FlatList
           data={data}

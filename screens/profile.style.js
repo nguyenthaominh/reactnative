@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
   menuWrapper: {
-    marginTop: SIZES.xLarge,
+    marginTop: SIZES.Large,
     width: SIZES.width - SIZES.large,
     backgroundColor: COLORS.lightWhite,
     borderRadius: 12,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   menuItem: (borderBottomWidth) => ({
     borderBottomWidth: borderBottomWidth,
     flexDirection: "row",
-    paddingVertical: 15,
+    paddingVertical: 8,
     paddingHorizontal: 30,
     borderColor: COLORS.gray,
   }),

@@ -11,7 +11,12 @@ import {
   LoginPage,
   Orders,
   Favorites,
-  SingUp
+  SingUp,
+  Notify,
+  FaceId,
+  Ads,
+  Map,
+  Health
 } from "./screens";
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +79,31 @@ export default function App() {
         <Stack.Screen
           name="SingUp"
           component={SingUp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Notify"
+          component={Notify}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="FaceId"
+          component={FaceId}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Ads"
+          component={Ads}
+          options={{ headerShown: false }}
+        />
+            <Stack.Screen
+          name="Map"
+          component={Map}
+          options={{ headerShown: false }}
+        />
+          <Stack.Screen
+          name="Health"
+          component={Health}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -11,13 +11,32 @@ import Carousel from "../components/home/Carousel";
 import Headlings from "../components/home/Headlings";
 import ProductRow from "../components/products/ProductRow";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const Home = () => {
+import fetchCart from "../hook/fetchCart";
+const Home = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
   const [userLogin, setUserLogin] = useState(false);
+  const [cartData, setCartData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchCart();
+        setCartData(data);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [cartData]);
+
   useEffect(() => {
     checkExistingUser();
   }, []);
+
   const checkExistingUser = async () => {
     const id = await AsyncStorage.getItem("id");
     const userId = `user${JSON.parse(id)}`;
@@ -47,9 +66,9 @@ const Home = () => {
 
           <View style={{ alignItems: "flex-end" }}>
             <View style={styles.cartCount}>
-              <Text style={styles.cartNumber}> 8 </Text>
+              <Text style={styles.cartNumber}> {cartData.length} </Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.replace("Cart")}>
               <Fontisto name="shopping-bag" size={24} />
             </TouchableOpacity>
           </View>

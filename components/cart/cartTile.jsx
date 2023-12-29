@@ -1,13 +1,16 @@
 import { StyleSheet, Text } from "react-native";
 import React from "react";
-import { TouchableOpacity, Image, View } from  "react-native";
+import { TouchableOpacity, Image, View } from "react-native";
 import styles from "../../screens/cart.style";
 import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../constants";
 
-const CartTile = ({ item, onPress, isSelected,onDelete  }) => {
+const CartTile = ({ item, onPress, isSelected, onDelete }) => {
   return (
-    <TouchableOpacity style={styles.favContainer(isSelected?COLORS.secondary:"#FFF" )} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.favContainer(isSelected ? COLORS.secondary : "#FFF")}
+      onPress={onPress}
+    >
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.cartItem.imageUrl }} style={styles.image} />
       </View>
@@ -19,7 +22,7 @@ const CartTile = ({ item, onPress, isSelected,onDelete  }) => {
           {item.cartItem.supplier}
         </Text>
         <Text style={styles.supplya} numberOfLines={1}>
-          ${item.cartItem.price}*{item.quantity}
+          {item.cartItem.price}*{item.quantity}
         </Text>
       </View>
       <TouchableOpacity

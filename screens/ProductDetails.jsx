@@ -16,11 +16,19 @@ import WebView from "react-native-webview";
 const ProductDetails = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
-  console.log(item);
   const [count, setCount] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState(false);
+  const getAllKeys = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      console.log("All keys:", keys);
+      return keys;
+    } catch (error) {
+      console.error("Error getting all keys:", error);
+    }
+  };
   const increment = () => {
     setCount(count + 1);
   };
@@ -35,53 +43,55 @@ const ProductDetails = ({ navigation }) => {
   }, []);
   const checkUser = async () => {
     try {
-      const id = AsyncStorage.getItem("id");
+      const id = await AsyncStorage.getItem("id");
+      console.log(id)
       if (id !== null) {
         setIsLoggedIn(true);
-        console.log(isLoggedIn);
       } else {
-        console.log("use not logged in");
+        console.log("user not logged in");
       }
     } catch (error) {}
   };
   const createCheckOut = async () => {
-    try{
-    const id = await AsyncStorage.getItem("id");
-    const response = await fetch(
-      "https://payment-production-7fa0.up.railway.app/stripe/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: JSON.parse(id),
-          cartItems: [
-            {
-              name: item.title,
-              id: item._id,
-              price: item.price,
-              cartQuantity: count,
-            },
-          ],
-        }),
+    try {
+      const id = await AsyncStorage.getItem("id");
+      const response = await fetch(
+        "https://payment-production-7fa0.up.railway.app/stripe/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: JSON.parse(id),
+            cartItems: [
+              {
+                name: item.title,
+                id: item._id,
+                price: item.price,
+                cartQuantity: count,
+              },
+            ],
+          }),
+        }
+      );
+      console.log("Status Code:", response.status);
+      const responseText = await response.text();
+      console.log("Response Text:", responseText);
+
+      if (response.status === 404) {
+        throw new Error(
+          "Endpoint not found. Check your server-side code and URL."
+        );
       }
-    );
-    console.log("Status Code:", response.status);
-    const responseText = await response.text();
-    console.log("Response Text:", responseText);
 
-    if (response.status === 404) {
-      throw new Error("Endpoint not found. Check your server-side code and URL.");
-    }
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
 
-    if (!response.ok) {
-      throw new Error(`Server returned ${response.status}`);
-    }
-
-    const { url } = await response.json();
-    setPaymentUrl(url);
-    }catch (error) {
+      const { url } = await response.json();
+      setPaymentUrl(url);
+    } catch (error) {
       console.error("Error creating checkout:", error.message);
     }
   };
@@ -108,15 +118,18 @@ const ProductDetails = ({ navigation }) => {
       product_location: item.product_location,
     };
     try {
+      getAllKeys();
       let favoritesObj = existingItem ? JSON.parse(existingItem) : {};
       if (favoritesObj[productId]) {
         delete favoritesObj[productId];
         console.log("deleted");
         setFavorites(false);
+        Alert.alert("Đã bỏ yêu thích");
       } else {
         favoritesObj[productId] = productObj;
         console.log("added to favorites");
         setFavorites(true);
+        Alert.alert("Đã thêm vào yêu thích");
       }
       await AsyncStorage.setItem(favoritesId, JSON.stringify(favoritesObj));
     } catch (error) {
@@ -125,8 +138,9 @@ const ProductDetails = ({ navigation }) => {
   };
 
   const handlePress = () => {
-    if (isLoggedIn == false) {
-      navigation.navigate("Login");
+    console.log("data:",isLoggedIn)
+    if (isLoggedIn === false) {
+      navigation.navigate("LoginPage");
     } else {
       addToFavorites();
     }
@@ -134,16 +148,17 @@ const ProductDetails = ({ navigation }) => {
 
   const handleBuy = () => {
     if (isLoggedIn === false) {
-      navigation.navigate("Login");
+      navigation.navigate("LoginPage");
     } else {
       createCheckOut();
     }
   };
   const handleCart = () => {
     if (isLoggedIn == false) {
-      navigation.navigate("Login");
+      navigation.navigate("LoginPage");
     } else {
       AddToCart(item._id, count);
+      Alert.alert("Đã thêm vào giỏ hàng");
     }
   };
 
@@ -192,7 +207,7 @@ const ProductDetails = ({ navigation }) => {
             <View style={styles.titleRow}>
               <Text style={styles.title}>{item.title}</Text>
               <View style={styles.priceWrapper}>
-                <Text style={styles.price}>${item.price}</Text>
+                <Text style={styles.price}>{item.price}đ</Text>
               </View>
             </View>
             <View style={styles.ratingRow}>

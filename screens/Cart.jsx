@@ -15,9 +15,7 @@ import { COLORS } from "../constants";
 import CartTile from "../components/cart/cartTile";
 import fetchCart from "../hook/fetchCart";
 import { Button } from "../components";
-import useDeleteCartItem from '../hook/useDeleteCartItem'; // Import the new hook
-
-
+import useDeleteCartItem from "../hook/useDeleteCartItem"; // Import the new hook
 
 const Cart = ({ navigation }) => {
   const [cartData, setCartData] = useState([]);
@@ -67,8 +65,11 @@ const Cart = ({ navigation }) => {
       const updatedCartData = await fetchCart();
       setCartData(updatedCartData);
     } catch (error) {
-      console.error('Error deleting product:', error);
+      console.error("Error deleting product:", error);
     }
+  };
+  const countItemsInCart = () => {
+    return cartData.length;
   };
 
   const handleCheckoutPress = () => {
@@ -78,7 +79,9 @@ const Cart = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleRow}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Bottom Navigation")}
+        >
           <Ionicons
             name="chevron-back-circle"
             size={30}

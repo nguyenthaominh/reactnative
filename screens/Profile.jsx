@@ -5,6 +5,7 @@ import {
   View,
   Image,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import style from "./profile.style";
@@ -16,6 +17,7 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Profile = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
@@ -58,7 +60,7 @@ const Profile = ({ navigation }) => {
       },
       {
         text: "Chắc chắn",
-        onPress: () => userLogout()
+        onPress: () => userLogout(),
       },
       { defaultIndex: 1 },
     ]);
@@ -109,11 +111,13 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={style.profileContainer}>
           <Image
-            source={require("../assets/images/profile.jpeg")}
+            source={require("../assets/images/user.png")}
             style={style.profile}
           />
           <Text style={style.name}>
-            {userLogin === true ? userData.name : "Mời bạn đăng nhập tài khoản"}
+            {userLogin === true
+              ? userData.username
+              : "Mời bạn đăng nhập tài khoản"}
           </Text>
           {userLogin === false ? (
             <TouchableOpacity onPress={() => navigation.navigate("LoginPage")}>
@@ -123,7 +127,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           ) : (
             <View style={style.loginBtn}>
-              <Text style={style.menuText}>dđ@.com</Text>
+              <Text style={style.menuText}>{userData.email}</Text>
             </View>
           )}
           {userLogin === false ? (
@@ -162,7 +166,55 @@ const Profile = ({ navigation }) => {
                   <Text style={style.menuText}>Giỏ hàng</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => clearCache()}>
+
+              <TouchableOpacity onPress={() => navigation.navigate("Notify")}>
+                <View style={style.menuItem(0.2)}>
+                  <AntDesign name="bells" color={COLORS.primary} size={24} />
+                  <Text style={style.menuText}>Thông báo</Text>
+                </View>
+              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={() => navigation.navigate("FaceId")}>
+                <View style={style.menuItem(0.2)}>
+                  <MaterialCommunityIcons
+                    name="face-man"
+                    color={COLORS.primary}
+                    size={24}
+                  />
+                  <Text style={style.menuText}>Xác thực FaceId</Text>
+                </View>
+              </TouchableOpacity> */}
+              <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+                <View style={style.menuItem(0.2)}>
+                  <MaterialCommunityIcons
+                    name="map"
+                    color={COLORS.primary}
+                    size={24}
+                  />
+                  <Text style={style.menuText}>Xem bản đồ</Text>
+                </View>
+              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={() => navigation.navigate("Health")}>
+                <View style={style.menuItem(0.2)}>
+                  <MaterialCommunityIcons
+                    name="heart-circle"
+                    color={COLORS.primary}
+                    size={24}
+                  />
+                  <Text style={style.menuText}>Theo dõi sức khỏe</Text>
+                </View>
+              </TouchableOpacity> */}
+              <TouchableOpacity onPress={() => navigation.navigate("Ads")}>
+                <View style={style.menuItem(0.2)}>
+                  <MaterialCommunityIcons
+                    name="advertisements"
+                    color={COLORS.primary}
+                    size={24}
+                  />
+                  <Text style={style.menuText}>Xem quảng cáo</Text>
+                </View>
+              </TouchableOpacity>
+
+              {/* <TouchableOpacity onPress={() => clearCache()}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons
                     name="cached"
@@ -181,7 +233,7 @@ const Profile = ({ navigation }) => {
                   />
                   <Text style={style.menuText}>Xóa tài khoản</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity onPress={() => logout()}>
                 <View style={style.menuItem(0.2)}>
                   <AntDesign name="logout" color={COLORS.primary} size={24} />

@@ -46,7 +46,7 @@ const SingUp = ({ navigation }) => {
   const registerUser = async (values) => {
     setLoader(true);
     try {
-      const endpoint = "http://192.168.1.5:3000/api/register";
+      const endpoint = "http://172.16.8.36:3000/api/register";
       const data = values;
       const response = await axios.post(endpoint, data);
       if (response.status === 201) {

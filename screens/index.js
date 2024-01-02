@@ -13,6 +13,7 @@ import FaceId from "./FaceId";
 import Ads from "./Ads";
 import Map from "./Map";
 import Health from "./Health";
+import LocationFit from "./LocationFit";
 
 export {
   Home,
@@ -29,5 +30,6 @@ export {
   FaceId,
   Ads,
   Map,
-  Health
+  Health,
+  LocationFit,
 };

@@ -2,49 +2,45 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-
 const fetchOrders = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoader] = useState(false);
-    const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoader] = useState(false);
+  const [error, setError] = useState(null);
 
-    const fetchData = async () => {
-        setLoader(true);
-        const token = await AsyncStorage.getItem('token');
+  const fetchData = async () => {
+    setLoader(true);
+    const token = await AsyncStorage.getItem("token");
 
-        try {
-            const endpoint = 'http://192.168.1.5:3000/api/orders';
+    try {
+      const endpoint = "http://172.16.8.36:3000/api/orders";
 
-            const headers = {
-                'Content-Type': 'application/json',
-                'token': 'Bearer ' + JSON.parse(token)
-            };
+      const headers = {
+        "Content-Type": "application/json",
+        token: "Bearer " + JSON.parse(token),
+      };
 
-            const response = await axios.get(endpoint, { headers });
-            
-            setData(response.data);
+      const response = await axios.get(endpoint, { headers });
 
-            setLoader(false);
-        } catch (error) {
-            setError(error)
-        }finally{
-            setLoader(false);
-        }
+      setData(response.data);
+
+      setLoader(false);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoader(false);
     }
+  };
 
-    useEffect(() =>{
-        fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const refetch = ()=> {
-        setLoader(true);
-        fetchData();
-    }
+  const refetch = () => {
+    setLoader(true);
+    fetchData();
+  };
 
-
-    return {data, loading, error, refetch}
-
-
+  return { data, loading, error, refetch };
 };
 
 export default fetchOrders;

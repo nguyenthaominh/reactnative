@@ -193,6 +193,16 @@ const Profile = ({ navigation }) => {
                   <Text style={style.menuText}>Xem bản đồ</Text>
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("LocationFit")}>
+                <View style={style.menuItem(0.2)}>
+                  <MaterialCommunityIcons
+                    name="map"
+                    color={COLORS.primary}
+                    size={24}
+                  />
+                  <Text style={style.menuText}>Địa chỉ</Text>
+                </View>
+              </TouchableOpacity>
               {/* <TouchableOpacity onPress={() => navigation.navigate("Health")}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons

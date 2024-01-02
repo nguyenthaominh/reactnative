@@ -6,7 +6,7 @@ const fetchCart = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const endpoint = "http://192.168.1.5:3000/api/cart/find";
+      const endpoint = "http://172.16.8.36:3000/api/cart/find";
       const headers = {
         "Content-Type": "application/json",
         token: "Bearer " + JSON.parse(token),

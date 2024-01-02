@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from "react";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const useDeleteCartItem = () => {
   const [loading, setLoading] = useState(false);
@@ -9,11 +9,11 @@ const useDeleteCartItem = () => {
   const deleteCartItem = async (itemId) => {
     setLoading(true);
     try {
-      const token = await AsyncStorage.getItem('token');
-      const endpoint = `http://192.168.1.5:3000/api/cart/${itemId}`;
+      const token = await AsyncStorage.getItem("token");
+      const endpoint = `http://172.16.8.36:3000/api/cart/${itemId}`;
       const headers = {
-        'Content-Type': 'application/json',
-        token: 'Bearer ' + JSON.parse(token),
+        "Content-Type": "application/json",
+        token: "Bearer " + JSON.parse(token),
       };
 
       await axios.delete(endpoint, { headers });

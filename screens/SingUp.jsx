@@ -31,7 +31,7 @@ const SingUp = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
   const [obsecureText, setObsecureText] = useState(false);
   const inValidForm = () => {
-    Alert.alert("Invalid Form", "Please provide all required fields", [
+    Alert.alert("Error", "Bạn nhập chưa đầy đủ thông tin", [
       {
         text: "Cancel",
         onPress: () => console.log("cancel"),
@@ -46,7 +46,7 @@ const SingUp = ({ navigation }) => {
   const registerUser = async (values) => {
     setLoader(true);
     try {
-      const endpoint = "http://172.16.8.36:3000/api/register";
+      const endpoint = "http://192.168.1.8:3000/api/register";
       const data = values;
       const response = await axios.post(endpoint, data);
       if (response.status === 201) {

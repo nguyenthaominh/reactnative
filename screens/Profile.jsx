@@ -16,6 +16,7 @@ import {
   MaterialCommunityIcons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -52,6 +53,16 @@ const Profile = ({ navigation }) => {
       console.log("Error loggin out the user:", error);
     }
   };
+  const cacheClear = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const userId = `favorites${JSON.parse(id)}`;
+    try {
+      await AsyncStorage.removeItem(userId);
+      navigation.replace("Bottom Navigation");
+    } catch (error) {
+      console.log("Error loggin out the user:", error);
+    }
+  };
   const logout = () => {
     Alert.alert("Đăng xuất", "Bạn có chắc chắn muốn đăng xuất?", [
       {
@@ -76,7 +87,7 @@ const Profile = ({ navigation }) => {
         },
         {
           text: "Chắc chắn",
-          onPress: () => console.log("Đăng xuất"),
+          onPress: () => cacheClear(),
         },
         { defaultIndex: 1 },
       ]
@@ -193,16 +204,16 @@ const Profile = ({ navigation }) => {
                   <Text style={style.menuText}>Xem bản đồ</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate("LocationFit")}>
+              {/* <TouchableOpacity onPress={() => navigation.navigate("LocationFit")}>
                 <View style={style.menuItem(0.2)}>
-                  <MaterialCommunityIcons
-                    name="map"
+                  <Ionicons
+                    name="location-outline"
                     color={COLORS.primary}
                     size={24}
                   />
-                  <Text style={style.menuText}>Địa chỉ</Text>
+                  <Text style={style.menuText}>Định vị</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               {/* <TouchableOpacity onPress={() => navigation.navigate("Health")}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons
@@ -224,7 +235,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </TouchableOpacity>
 
-              {/* <TouchableOpacity onPress={() => clearCache()}>
+              <TouchableOpacity onPress={() => clearCache()}>
                 <View style={style.menuItem(0.2)}>
                   <MaterialCommunityIcons
                     name="cached"
@@ -234,7 +245,7 @@ const Profile = ({ navigation }) => {
                   <Text style={style.menuText}>Xóa Cache</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => deleteAccount()}>
+              {/* <TouchableOpacity onPress={() => deleteAccount()}>
                 <View style={style.menuItem(0.2)}>
                   <AntDesign
                     name="deleteuser"

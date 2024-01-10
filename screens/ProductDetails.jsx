@@ -1,4 +1,5 @@
 import { TouchableOpacity, Text, View, Image, Alert } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import {
@@ -44,7 +45,7 @@ const ProductDetails = ({ navigation }) => {
   const checkUser = async () => {
     try {
       const id = await AsyncStorage.getItem("id");
-      console.log(id)
+      console.log(id);
       if (id !== null) {
         setIsLoggedIn(true);
       } else {
@@ -54,13 +55,15 @@ const ProductDetails = ({ navigation }) => {
   };
   const createCheckOut = async () => {
     try {
+      const token = await AsyncStorage.getItem("token");
       const id = await AsyncStorage.getItem("id");
       const response = await fetch(
-        "https://payment-production-7fa0.up.railway.app/stripe/create-checkout-session",
+        "https://payment-production-3e2d.up.railway.app/stripe/create-checkout-session",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + JSON.parse(token),
           },
           body: JSON.stringify({
             userId: JSON.parse(id),
@@ -75,20 +78,6 @@ const ProductDetails = ({ navigation }) => {
           }),
         }
       );
-      console.log("Status Code:", response.status);
-      const responseText = await response.text();
-      console.log("Response Text:", responseText);
-
-      if (response.status === 404) {
-        throw new Error(
-          "Endpoint not found. Check your server-side code and URL."
-        );
-      }
-
-      if (!response.ok) {
-        throw new Error(`Server returned ${response.status}`);
-      }
-
       const { url } = await response.json();
       setPaymentUrl(url);
     } catch (error) {
@@ -138,7 +127,7 @@ const ProductDetails = ({ navigation }) => {
   };
 
   const handlePress = () => {
-    console.log("data:",isLoggedIn)
+    console.log("data:", isLoggedIn);
     if (isLoggedIn === false) {
       navigation.navigate("LoginPage");
     } else {

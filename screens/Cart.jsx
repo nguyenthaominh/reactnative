@@ -21,6 +21,7 @@ const Cart = ({ navigation }) => {
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItems, setSelectedItems] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState(0);
   // const [selected, setSelected] = useState(null);
   // const [select, setSelect] = useState(false);
   // console.log(select);

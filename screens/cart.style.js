@@ -58,5 +58,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
     textTransform: "capitalize",
   },
+  orders:{
+    backgroundColor:COLORS.lightWhite,
+    paddingHorizontal:30,
+    borderRadius:12
+  }
 });
 export default styles;

@@ -53,7 +53,7 @@ const LocationFit = ({ navigation }) => {
             color={COLORS.primary}
           />
         </TouchableOpacity>
-        <Text style={styles1.titletxt}>Địa chỉ</Text>
+        <Text style={styles1.titletxt}>Định vị</Text>
       </View>
       <View style={styles.container}>
         <Text style={styles.paragraph}>{text}</Text>

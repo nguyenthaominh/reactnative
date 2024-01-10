@@ -16,7 +16,7 @@ const Search = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://172.16.8.36:3000/api/products/search/${searchKey}`
+        `http://192.168.1.8:3000/api/products/search/${searchKey}`
       );
       setSearchResults(response.data);
       console.log(response.data);

@@ -33,7 +33,7 @@ const LoginPage = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(false);
 
   const inValidForm = () => {
-    Alert.alert("Invalid Form", "Please provide all required fields", [
+    Alert.alert("Đăng nhập thất bại", "Mời bạn thử lại", [
       {
         text: "Cancel",
         onPress: () => console.log("cancel"),
@@ -48,7 +48,7 @@ const LoginPage = ({ navigation }) => {
   const login = async (values) => {
     setLoader(true);
     try {
-      const endpoint = `http://172.16.8.36:3000/api/login`;
+      const endpoint = `http://192.168.1.8:3000/api/login`;
       const data = values;
       const response = await axios.post(endpoint, data);
       if (response.status === 200) {

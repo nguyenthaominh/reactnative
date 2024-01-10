@@ -10,7 +10,7 @@ const useDeleteCartItem = () => {
     setLoading(true);
     try {
       const token = await AsyncStorage.getItem("token");
-      const endpoint = `http://172.16.8.36:3000/api/cart/${itemId}`;
+      const endpoint = `http://192.168.1.8:3000/api/cart/${itemId}`;
       const headers = {
         "Content-Type": "application/json",
         token: "Bearer " + JSON.parse(token),

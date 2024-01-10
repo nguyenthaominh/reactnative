@@ -12,7 +12,7 @@ const fetchOrders = () => {
     const token = await AsyncStorage.getItem("token");
 
     try {
-      const endpoint = "http://172.16.8.36:3000/api/orders";
+      const endpoint = "http://192.168.1.8:3000/api/orders";
 
       const headers = {
         "Content-Type": "application/json",
@@ -20,6 +20,7 @@ const fetchOrders = () => {
       };
 
       const response = await axios.get(endpoint, { headers });
+  
 
       setData(response.data);
 

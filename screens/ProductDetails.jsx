@@ -172,6 +172,7 @@ const ProductDetails = ({ navigation }) => {
     <View style={styles.container}>
       {paymentUrl ? (
         <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+          <Text>{console.log("ttdetail:", paymentUrl)}</Text>
           <WebView
             source={{ uri: paymentUrl }}
             onNavigationStateChange={onNavigationStateChange}

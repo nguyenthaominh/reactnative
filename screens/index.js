@@ -14,6 +14,7 @@ import Ads from "./Ads";
 import Map from "./Map";
 import Health from "./Health";
 import LocationFit from "./LocationFit";
+import Checkout from "./Checkout";
 
 export {
   Home,
@@ -32,4 +33,5 @@ export {
   Map,
   Health,
   LocationFit,
+  Checkout
 };

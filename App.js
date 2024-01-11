@@ -17,7 +17,8 @@ import {
   Ads,
   Map,
   Health,
-  LocationFit
+  LocationFit,
+  Checkout
 } from "./screens";
 const Stack = createNativeStackNavigator();
 
@@ -110,6 +111,11 @@ export default function App() {
         <Stack.Screen
           name="LocationFit"
           component={LocationFit}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Checkout"
+          component={Checkout}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
